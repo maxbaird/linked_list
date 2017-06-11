@@ -13,7 +13,7 @@ $(PROJECT) : list.c
 	$(CC) $(CFLAGS) -c $< 
 
 test : test.c $(PROJECT)
-	$(CC) $(CFLAGS) -o $@ $(PROJECT) $<
+	$(CC) $(CFLAGS) $< $(PROJECT) -o $@ 
 
 clean:
 	rm -rf *.o test $(PROJECT)

@@ -53,5 +53,6 @@ int main(){
    printBox(b);
   }
 
+  deleteList(l);
   return EXIT_SUCCESS;
 }
