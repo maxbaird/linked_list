@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "list.h"
 
+static Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
+
 /* Creates an empty list.
  *
  * This function first determines if the list has already been initialized

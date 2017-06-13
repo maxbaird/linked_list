@@ -1,6 +1,10 @@
 #ifndef __LIST_H__
 #define __LIST_H__
 
+#ifdef __cpusplus
+extern "C" {
+#endif
+
 #define FATAL_ERROR(MSG)            \
   do{                               \
     fprintf(stderr, "%s\n", MSG);   \
@@ -21,8 +25,6 @@ struct Node{
        Position next;
 };
 
-Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
-
 List makeEmptyList(List l, Comparator c);
 int isEmpty(List l);
 int isLast(Position p, List l);
@@ -37,4 +39,8 @@ Position last(List l);
 Position advance(Position p, List l);
 ElementType retrieve(Position p);
 
+#ifdef __cpusplus
+}
 #endif
+
+#endif /* Include Guard */
