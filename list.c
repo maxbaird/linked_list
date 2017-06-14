@@ -200,7 +200,9 @@ void deleteList(List l){
              free(p);
              p = temp;
      }
-     free(l);
+
+     /* Finally, free the head of the list */
+     free(header(l));
 }
 
 /* Retrives element from node at specified position.
