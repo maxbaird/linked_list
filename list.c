@@ -3,6 +3,7 @@
 #include "list.h"
 
 static Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
+static unsigned int list_created;
 
 /* Creates an empty list.
  *
@@ -32,6 +33,8 @@ List makeEmptyList(List l, Comparator c){
      l->element = NULL;
      l->next = NULL;
      element_comparator = c;
+
+     list_created = 1;
      
      return l;
 }
@@ -42,6 +45,10 @@ List makeEmptyList(List l, Comparator c){
  * @return  Returns a non-zero value if l is not null. Returns 0 otherwise.
  */
 int isEmpty(List l){
+    if(list_created == 0)
+    {
+      return 1;
+    }
     return l->next == NULL;
 }
 
@@ -203,6 +210,7 @@ void deleteList(List l){
 
      /* Finally, free the head of the list */
      free(header(l));
+     list_created = 0;
 }
 
 /* Retrives element from node at specified position.
