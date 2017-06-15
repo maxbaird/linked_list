@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include "list.h"
 
+#define FATAL_ERROR(MSG)            \
+  do{                               \
+    fprintf(stderr, "%s\n", MSG);   \
+    exit(EXIT_FAILURE);             \
+  }while(0);
+
+#define UNUSED(x) (void)(x)
+
 static Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
 static unsigned int list_created;
 

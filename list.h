@@ -5,14 +5,6 @@
 extern "C" {
 #endif
 
-#define FATAL_ERROR(MSG)            \
-  do{                               \
-    fprintf(stderr, "%s\n", MSG);   \
-    exit(EXIT_FAILURE);             \
-  }while(0);
-
-#define UNUSED(x) (void)(x)
-
 struct Node;
 typedef struct Node *PtrToNode;
 typedef PtrToNode List;
