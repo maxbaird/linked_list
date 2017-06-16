@@ -12,6 +12,19 @@
 
 static Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
 
+/* Safely frees memory to avoid dangling pointers
+ *
+ * @param ptr A reference to the memory to be freed
+ */
+static void safeFree (void **ptr)
+{
+  if (ptr != NULL && *ptr != NULL)
+  {
+    free (*ptr);
+    *ptr = NULL;
+  }
+}
+
 /* Creates an empty list.
  *
  * This function first determines if the list has already been initialized
@@ -97,7 +110,7 @@ void deleteNode(ElementType e, List l){
      if(!isLast(p, l)){
          tempCell = p->next;
          p->next = tempCell->next;
-         free(tempCell);
+         safeFree((void **)&tempCell);
      }
 }
 
@@ -205,12 +218,12 @@ void deleteList(List l){
      
      while(p != NULL){
              temp = p->next;
-             free(p);
+             safeFree((void **)&p);
              p = temp;
      }
 
      /* Finally, free the head of the list */
-     free(header(l));
+     safeFree((void **)&l);
 }
 
 /* Retrives element from node at specified position.

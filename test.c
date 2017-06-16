@@ -52,7 +52,26 @@ int main(){
    b = (Box *)retrieve(p); 
    printBox(b);
   }
+  
+  deleteNode((ElementType)&b4, l);
+
+  fprintf(stdout, "List again\n");
+  p = header(l);
+  while((p = advance(p, l)) && !isLast(p, l)){
+   b = (Box *)retrieve(p); 
+   printBox(b);
+  }
 
   deleteList(l);
+
+  if(l == NULL)
+  {
+    fprintf(stdout, "NULL !\n");
+  }
+  else
+  {
+    fprintf(stdout, "Motherfucker!\n");
+  }
+
   return EXIT_SUCCESS;
 }
