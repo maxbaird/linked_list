@@ -37,41 +37,33 @@ int main(){
 
   List l = NULL;
 
-  l = makeEmptyList(l, comparator); 
+  l = LST_makeEmptyList(l, comparator); 
 
-  insert((ElementType)&b1, l, first(l));
-  insert((ElementType)&b2, l, first(l));
-  insert((ElementType)&b3, l, first(l));
-  insert((ElementType)&b4, l, first(l));
-  insert((ElementType)&b5, l, first(l));
+  LST_insert((ElementType)&b1, l, LST_first(l));
+  LST_insert((ElementType)&b2, l, LST_first(l));
+  LST_insert((ElementType)&b3, l, LST_first(l));
+  LST_insert((ElementType)&b4, l, LST_first(l));
+  LST_insert((ElementType)&b5, l, LST_first(l));
   
-  Position p = header(l);
+  Position p = LST_header(l);
   Box *b = NULL;
 
-  while((p = advance(p, l)) && !isLast(p, l)){
-   b = (Box *)retrieve(p); 
+  while((p = LST_advance(p, l)) && !LST_isLast(p, l)){
+   b = (Box *)LST_retrieve(p); 
    printBox(b);
   }
   
-  deleteNode((ElementType)&b4, l);
+  LST_deleteNode((ElementType)&b4, l);
 
   fprintf(stdout, "List again\n");
-  p = header(l);
-  while((p = advance(p, l)) && !isLast(p, l)){
-   b = (Box *)retrieve(p); 
+  p = LST_header(l);
+  while((p = LST_advance(p, l)) && !LST_isLast(p, l)){
+   b = (Box *)LST_retrieve(p); 
    printBox(b);
   }
 
-  deleteList(l);
-
-  if(l == NULL)
-  {
-    fprintf(stdout, "NULL !\n");
-  }
-  else
-  {
-    fprintf(stdout, "Motherfucker!\n");
-  }
+  LST_deleteList(l);
+  l = NULL;
 
   return EXIT_SUCCESS;
 }

@@ -40,9 +40,9 @@ static void safeFree (void **ptr)
  *          message is printed followed by an exit.
  *
  */
-List makeEmptyList(List l, Comparator c){
+List LST_makeEmptyList(List l, Comparator c){
      if(l != NULL){
-          deleteList(l); /* Remove existing nodes from list, if any */
+          LST_deleteList(l); /* Remove existing nodes from list, if any */
      }
      l = (struct Node *)malloc(sizeof(struct Node));
      
@@ -62,7 +62,7 @@ List makeEmptyList(List l, Comparator c){
  * @param   l A reference to the list to be checked.
  * @return  Returns a non-zero value if l is not null. Returns 0 otherwise.
  */
-int isEmpty(List l){
+int LST_isEmpty(List l){
     return l->next == NULL;
 }
 
@@ -72,7 +72,7 @@ int isEmpty(List l){
  * @param   l The list which contains the position.
  * @return  Returns a non-zero value if p is the last element. Returns 0 otherwise.
  */
-int isLast(Position p, List l){
+int LST_isLast(Position p, List l){
     UNUSED(l);
     return p->next == NULL;
 }
@@ -87,7 +87,7 @@ int isLast(Position p, List l){
  * @param   l The list to be traversed.
  * @return  Returns the Position of e in l; Null if not found.   
  */
-Position find(ElementType e, List l){
+Position LST_find(ElementType e, List l){
          Position p;
          
          p = l->next;
@@ -102,12 +102,12 @@ Position find(ElementType e, List l){
  * @param   e The element to be removed from the list.
  * @param   l The list to be traversed for e.
  */
-void deleteNode(ElementType e, List l){
+void LST_deleteNode(ElementType e, List l){
      Position p, tempCell;
      
-     p = findPrevious(e, l);
+     p = LST_findPrevious(e, l);
      
-     if(!isLast(p, l)){
+     if(!LST_isLast(p, l)){
          tempCell = p->next;
          p->next = tempCell->next;
          safeFree((void **)&tempCell);
@@ -123,7 +123,7 @@ void deleteNode(ElementType e, List l){
  *          of e. If e is not found, then the next field of returned value
  *          is NULL. 
  */
-Position findPrevious(ElementType e, List l){
+Position LST_findPrevious(ElementType e, List l){
      Position p;
      
      p = l;
@@ -139,7 +139,7 @@ Position findPrevious(ElementType e, List l){
  * @param   e Used to initialize the value of the node's element.
  * @param   p The position of which to perform the insertion.
  */
-void insert(ElementType e, List l, Position p)
+void LST_insert(ElementType e, List l, Position p)
 {
      UNUSED(l);
      Position tempCell;
@@ -159,7 +159,7 @@ void insert(ElementType e, List l, Position p)
  * @param   l The list who's header will be returned.
  * @return  Returns the header of list l.
  */
-Position header(List l){
+Position LST_header(List l){
   return l;
 }
 
@@ -168,9 +168,9 @@ Position header(List l){
  * @param   l The list used to locate the position of it's first node.
  * @return  Returns the position of l's first node.
  */
-Position first(List l){
+Position LST_first(List l){
      Position p;
-     p =(isEmpty(l)) ? l : l->next;
+     p =(LST_isEmpty(l)) ? l : l->next;
      return p;
 }
 
@@ -179,7 +179,7 @@ Position first(List l){
  * @param   l The list used to locate the position of it's last node.
  * @return  Returns the position of l's last node.
  */
-Position last(List l){
+Position LST_last(List l){
       Position p;
       p = l;
       
@@ -196,8 +196,8 @@ Position last(List l){
  * @return  Returns the node ahead of position p. If p is the last node
  *          then p is returned.
  */
-Position advance(Position p, List l){
-    if(isLast(p, l)){
+Position LST_advance(Position p, List l){
+    if(LST_isLast(p, l)){
        return p;
     }
     else{
@@ -209,7 +209,7 @@ Position advance(Position p, List l){
  *
  * @param   l The list to be deleted. 
  */
-void deleteList(List l){
+void LST_deleteList(List l){
      Position p, temp;
      p = l->next; /* Header assumed */
      
@@ -231,6 +231,6 @@ void deleteList(List l){
  * @param   p The position of the node from which the element should be returned.
  * @return  The element found at position p.
  */
-ElementType retrieve(Position p){
+ElementType LST_retrieve(Position p){
             return p->element;
 }
