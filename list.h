@@ -1,7 +1,7 @@
 #ifndef __LIST_H__
 #define __LIST_H__
 
-#ifdef __cpusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -31,7 +31,7 @@ Position LST_last(List l);
 Position LST_advance(Position p, List l);
 ElementType LST_retrieve(Position p);
 
-#ifdef __cpusplus
+#ifdef __cplusplus
 }
 #endif
 
