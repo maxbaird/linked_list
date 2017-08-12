@@ -234,3 +234,25 @@ void LST_deleteList(List l){
 ElementType LST_retrieve(Position p){
             return p->element;
 }
+
+/* Traverses the list and applies a function with arguments to 
+ * each element.
+ *
+ * @param   l The list to traverse
+ * @param   f The function to apply to each element
+ * @param   args The arguments to pass to f
+ */
+void LST_traverse(List l, LST_traverse_fun f, void *args)
+{
+  Position p = LST_header(l);
+  ElementType e = NULL;
+
+  while((p = LST_advance(p, l)) && !LST_isLast(p, l))
+  {
+    e = LST_retrieve(p);
+    f(e, args);
+  }
+
+  e = LST_retrieve(LST_last(l));
+  f(e, args);
+}

@@ -11,6 +11,7 @@ typedef PtrToNode List;
 typedef PtrToNode Position;
 typedef void* ElementType;
 typedef int (*Comparator)(const void*, const void*);
+typedef void* (*LST_traverse_fun)(ElementType, void *);
 
 struct Node{
        ElementType element;
@@ -30,6 +31,7 @@ Position LST_first(List l);
 Position LST_last(List l);
 Position LST_advance(Position p, List l);
 ElementType LST_retrieve(Position p);
+void LST_traverse(List l, LST_traverse_fun f, void *args);
 
 #ifdef __cplusplus
 }

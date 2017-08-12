@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "list.h"
 
+#define UNUSED(x) (void)(x)
+
 typedef struct{
   int h;
   int w;
@@ -28,6 +30,13 @@ void printBox(Box *b){
          b->d);
 }
 
+void *printFun(ElementType e, void *args)
+{
+  UNUSED(args); 
+  printBox((Box *)e);
+  return NULL;
+}
+
 int main(){
   Box b1 = {1,1,1};
   Box b2 = {2,2,2};
@@ -45,22 +54,12 @@ int main(){
   LST_insert((ElementType)&b4, l, LST_first(l));
   LST_insert((ElementType)&b5, l, LST_first(l));
   
-  Position p = LST_header(l);
-  Box *b = NULL;
-
-  while((p = LST_advance(p, l)) && !LST_isLast(p, l)){
-   b = (Box *)LST_retrieve(p); 
-   printBox(b);
-  }
+  LST_traverse(l, printFun, NULL);
   
   LST_deleteNode((ElementType)&b4, l);
 
   fprintf(stdout, "List again\n");
-  p = LST_header(l);
-  while((p = LST_advance(p, l)) && !LST_isLast(p, l)){
-   b = (Box *)LST_retrieve(p); 
-   printBox(b);
-  }
+  LST_traverse(l, printFun, NULL);
 
   LST_deleteList(l);
   l = NULL;
