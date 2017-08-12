@@ -30,7 +30,7 @@ void printBox(Box *b){
          b->d);
 }
 
-void *printFun(ElementType e, void *args)
+static void *printFun(ElementType e, void *args)
 {
   UNUSED(args); 
   printBox((Box *)e);
