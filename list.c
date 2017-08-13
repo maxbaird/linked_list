@@ -87,11 +87,11 @@ int LST_isLast(Position p, List l){
  * @param   l The list to be traversed.
  * @return  Returns the Position of e in l; Null if not found.   
  */
-Position LST_find(ElementType e, List l){
+Position LST_find(void *element, List l){
          Position p;
          
          p = l->next;
-         while(p != NULL && element_comparator(p->element, e) != 0)
+         while(p != NULL && element_comparator(p->element, element) != 0)
                  p = p->next;
          
          return p;
@@ -102,10 +102,10 @@ Position LST_find(ElementType e, List l){
  * @param   e The element to be removed from the list.
  * @param   l The list to be traversed for e.
  */
-void LST_deleteNode(ElementType e, List l){
+void LST_deleteNode(void *element, List l){
      Position p, tempCell;
      
-     p = LST_findPrevious(e, l);
+     p = LST_findPrevious(element, l);
      
      if(!LST_isLast(p, l)){
          tempCell = p->next;
@@ -123,11 +123,11 @@ void LST_deleteNode(ElementType e, List l){
  *          of e. If e is not found, then the next field of returned value
  *          is NULL. 
  */
-Position LST_findPrevious(ElementType e, List l){
+Position LST_findPrevious(void *element, List l){
      Position p;
      
      p = l;
-     while(p->next != NULL && element_comparator(p->next->element, e) != 0)
+     while(p->next != NULL && element_comparator(p->next->element, element) != 0)
           p = p->next;
      
      return p;         
@@ -139,7 +139,7 @@ Position LST_findPrevious(ElementType e, List l){
  * @param   e Used to initialize the value of the node's element.
  * @param   p The position of which to perform the insertion.
  */
-void LST_insert(ElementType e, List l, Position p)
+void LST_insert(void *element, List l, Position p)
 {
      UNUSED(l);
      Position tempCell;
@@ -149,7 +149,7 @@ void LST_insert(ElementType e, List l, Position p)
          FATAL_ERROR("Out of space!!!");
      }
        
-     tempCell->element = e;
+     tempCell->element = element;
      tempCell->next = p->next;
      p->next = tempCell;
 }
@@ -231,7 +231,7 @@ void LST_deleteList(List l){
  * @param   p The position of the node from which the element should be returned.
  * @return  The element found at position p.
  */
-ElementType LST_retrieve(Position p){
+void *LST_retrieve(Position p){
             return p->element;
 }
 
@@ -245,14 +245,14 @@ ElementType LST_retrieve(Position p){
 void LST_traverse(List l, LST_traverse_fun f, void *args)
 {
   Position p = LST_header(l);
-  ElementType e = NULL;
+  void *element  = NULL;
 
   while((p = LST_advance(p, l)) && !LST_isLast(p, l))
   {
-    e = LST_retrieve(p);
-    f(e, args);
+    element = LST_retrieve(p);
+    f(element, args);
   }
 
-  e = LST_retrieve(LST_last(l));
-  f(e, args);
+  element = LST_retrieve(LST_last(l));
+  f(element, args);
 }
