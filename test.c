@@ -56,7 +56,7 @@ int main(){
   
   LST_traverse(l, printFun, NULL);
   
-  //LST_deleteNode((void *)&b4, l);
+  LST_deleteNode((void *)&b4, l);
 
   fprintf(stdout, "List again\n");
   LST_traverse(l, printFun, NULL);
