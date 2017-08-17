@@ -1,5 +1,4 @@
-#ifndef __LIST_H__
-#define __LIST_H__
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,5 +35,3 @@ void LST_traverse(List l, LST_traverse_fun f, void *args);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* Include Guard */

@@ -30,7 +30,7 @@ void printBox(Box *b){
          b->d);
 }
 
-static void *printFun(ElementType e, void *args)
+static void *printFun(void * e, void *args)
 {
   UNUSED(args); 
   printBox((Box *)e);
@@ -48,15 +48,15 @@ int main(){
 
   l = LST_makeEmptyList(l, comparator); 
 
-  LST_insert((ElementType)&b1, l, LST_first(l));
-  LST_insert((ElementType)&b2, l, LST_first(l));
-  LST_insert((ElementType)&b3, l, LST_first(l));
-  LST_insert((ElementType)&b4, l, LST_first(l));
-  LST_insert((ElementType)&b5, l, LST_first(l));
+  LST_insert((void *)&b1, l, LST_first(l));
+  LST_insert((void *)&b2, l, LST_first(l));
+  LST_insert((void *)&b3, l, LST_first(l));
+  LST_insert((void *)&b4, l, LST_first(l));
+  LST_insert((void *)&b5, l, LST_first(l));
   
   LST_traverse(l, printFun, NULL);
   
-  LST_deleteNode((ElementType)&b4, l);
+  LST_deleteNode((void *)&b4, l);
 
   fprintf(stdout, "List again\n");
   LST_traverse(l, printFun, NULL);

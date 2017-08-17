@@ -244,6 +244,11 @@ ElementType LST_retrieve(Position p){
  */
 void LST_traverse(List l, LST_traverse_fun f, void *args)
 {
+  if(LST_isEmpty(l))
+  {
+    return;
+  }
+
   Position p = LST_header(l);
   ElementType e = NULL;
 
