@@ -10,7 +10,7 @@
 
 #define UNUSED(x) (void)(x)
 
-static Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
+//static Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
 
 /* Safely frees memory to avoid dangling pointers
  *
@@ -52,7 +52,7 @@ List LST_makeEmptyList(List l, Comparator c){
           
      l->element = NULL;
      l->next = NULL;
-     element_comparator = c;
+     l->comparator = c;
      
      return l;
 }
@@ -91,7 +91,7 @@ Position LST_find(void *element, List l){
          Position p;
          
          p = l->next;
-         while(p != NULL && element_comparator(p->element, element) != 0)
+         while(p != NULL && l->comparator(p->element, element) != 0)
                  p = p->next;
          
          return p;
@@ -127,7 +127,7 @@ Position LST_findPrevious(void *element, List l){
      Position p;
      
      p = l;
-     while(p->next != NULL && element_comparator(p->next->element, element) != 0)
+     while(p->next != NULL && l->comparator(p->next->element, element) != 0)
           p = p->next;
      
      return p;         
@@ -151,6 +151,7 @@ void LST_insert(void *element, List l, Position p)
        
      tempCell->element = element;
      tempCell->next = p->next;
+     tempCell->comparator = NULL;
      p->next = tempCell;
 }
 
@@ -214,7 +215,7 @@ void LST_deleteList(List l){
      p = l->next; /* Header assumed */
      
      l->next = NULL;
-     element_comparator = NULL;
+     l->comparator = NULL;
      
      while(p != NULL){
              temp = p->next;

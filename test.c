@@ -61,6 +61,11 @@ int main(){
   fprintf(stdout, "List again\n");
   LST_traverse(l, printFun, NULL);
 
+  Position p = LST_find((void *)&b5, l);
+  Box *aBox = (Box *)LST_retrieve(p);
+  fprintf(stdout, "Found box\n");
+  printBox(aBox);
+
   LST_deleteList(l);
   l = NULL;
 

@@ -13,6 +13,7 @@ typedef int (*Comparator)(const void*, const void*);
 typedef void* (*LST_traverse_fun)(void *, void *);
 
 struct Node{
+       Comparator comparator;
        void *element;
        Position next;
 };
