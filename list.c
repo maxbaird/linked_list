@@ -10,8 +10,6 @@
 
 #define UNUSED(x) (void)(x)
 
-//static Comparator element_comparator; /* Used to store a reference to a callback function to compare elements */
-
 /* Safely frees memory to avoid dangling pointers
  *
  * @param ptr A reference to the memory to be freed

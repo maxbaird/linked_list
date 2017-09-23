@@ -10,7 +10,7 @@ typedef PtrToNode List;
 typedef PtrToNode Position;
 typedef void* ElementType;
 typedef int (*Comparator)(const void*, const void*);
-typedef void* (*LST_traverse_fun)(ElementType, void *);
+typedef void (*LST_traverse_fun)(ElementType, void *);
 
 struct Node{
        Comparator comparator;

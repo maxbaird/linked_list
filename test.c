@@ -30,11 +30,10 @@ void printBox(Box *b){
          b->d);
 }
 
-static void *printFun(void * e, void *args)
+static void printFun(void * e, void *args)
 {
   UNUSED(args); 
   printBox((Box *)e);
-  return NULL;
 }
 
 int main(){
