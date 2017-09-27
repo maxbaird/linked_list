@@ -33,7 +33,6 @@ void printBox(Box *b){
 
 void boxCleanup(void *e)
 {
-  fprintf(stdout, "Calling cleanup\n");
   Box *b = (Box *)e;
   printBox(b);
   free(b->data);
@@ -54,7 +53,7 @@ int main(){
 
   if(ptr1 == NULL || ptr1 == NULL || ptr1 == NULL || ptr1 == NULL || ptr1 == NULL)
   {
-    fprintf(stderr, "Something fucked up\n");
+    fprintf(stderr, "Failed to allocate memory!\n");
     exit(EXIT_FAILURE);
   }
 
@@ -76,7 +75,7 @@ int main(){
   
   LST_traverse(l, printFun, NULL);
   
-  LST_deleteNode((void *)&b4, l, NULL);
+  LST_deleteNode((void *)&b4, l, boxCleanup);
 
   fprintf(stdout, "List again\n");
   LST_traverse(l, printFun, NULL);
@@ -86,7 +85,7 @@ int main(){
   fprintf(stdout, "Found box\n");
   printBox(aBox);
 
-  LST_deleteList(l, NULL);
+  LST_deleteList(l, boxCleanup);
   l = NULL;
 
   return EXIT_SUCCESS;
