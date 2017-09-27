@@ -8,6 +8,7 @@ typedef struct{
   int h;
   int w;
   int d;
+  int *data;
 }Box;
 
 int get_volume(Box *b){
@@ -30,6 +31,14 @@ void printBox(Box *b){
          b->d);
 }
 
+void boxCleanup(void *e)
+{
+  fprintf(stdout, "Calling cleanup\n");
+  Box *b = (Box *)e;
+  printBox(b);
+  free(b->data);
+}
+
 static void printFun(void * e, void *args)
 {
   UNUSED(args); 
@@ -37,11 +46,23 @@ static void printFun(void * e, void *args)
 }
 
 int main(){
-  Box b1 = {1,1,1};
-  Box b2 = {2,2,2};
-  Box b3 = {3,3,3};
-  Box b4 = {4,4,4};
-  Box b5 = {5,5,5};
+  int *ptr1 = malloc(1024 * sizeof(int));
+  int *ptr2 = malloc(1024 * sizeof(int));
+  int *ptr3 = malloc(1024 * sizeof(int));
+  int *ptr4 = malloc(1024 * sizeof(int));
+  int *ptr5 = malloc(1024 * sizeof(int));
+
+  if(ptr1 == NULL || ptr1 == NULL || ptr1 == NULL || ptr1 == NULL || ptr1 == NULL)
+  {
+    fprintf(stderr, "Something fucked up\n");
+    exit(EXIT_FAILURE);
+  }
+
+  Box b1 = {1,1,1, ptr1};
+  Box b2 = {2,2,2, ptr2};
+  Box b3 = {3,3,3, ptr3};
+  Box b4 = {4,4,4, ptr4};
+  Box b5 = {5,5,5, ptr5};
 
   List l = NULL;
 
@@ -55,7 +76,7 @@ int main(){
   
   LST_traverse(l, printFun, NULL);
   
-  LST_deleteNode((void *)&b4, l);
+  LST_deleteNode((void *)&b4, l, NULL);
 
   fprintf(stdout, "List again\n");
   LST_traverse(l, printFun, NULL);
@@ -65,7 +86,7 @@ int main(){
   fprintf(stdout, "Found box\n");
   printBox(aBox);
 
-  LST_deleteList(l);
+  LST_deleteList(l, NULL);
   l = NULL;
 
   return EXIT_SUCCESS;

@@ -40,7 +40,8 @@ static void safeFree (void **ptr)
  */
 List LST_makeEmptyList(List l, Comparator c){
      if(l != NULL){
-          LST_deleteList(l); /* Remove existing nodes from list, if any */
+          //TODO Figure out how to use a clean up callback here
+          LST_deleteList(l, NULL); /* Remove existing nodes from list, if any */
      }
      l = (struct Node *)malloc(sizeof(struct Node));
      
@@ -100,7 +101,7 @@ Position LST_find(void *element, List l){
  * @param   e The element to be removed from the list.
  * @param   l The list to be traversed for e.
  */
-void LST_deleteNode(void *element, List l){
+void LST_deleteNode(void *element, List l, LST_delete_callback delete_callback){
      Position p, tempCell;
      
      p = LST_findPrevious(element, l);
@@ -108,6 +109,12 @@ void LST_deleteNode(void *element, List l){
      if(!LST_isLast(p, l)){
          tempCell = p->next;
          p->next = tempCell->next;
+         tempCell->comparator = NULL;
+
+         /* Call function to clean up node resources
+          * if one was specified. 
+          */
+         (delete_callback) ? delete_callback(tempCell->element): NULL;
          safeFree((void **)&tempCell);
      }
 }
@@ -208,7 +215,7 @@ Position LST_advance(Position p, List l){
  *
  * @param   l The list to be deleted. 
  */
-void LST_deleteList(List l){
+void LST_deleteList(List l, LST_delete_callback delete_callback){
      Position p, temp;
      p = l->next; /* Header assumed */
      
@@ -217,6 +224,13 @@ void LST_deleteList(List l){
      
      while(p != NULL){
              temp = p->next;
+             p->comparator = NULL;
+
+             /* Call function to clean up node resources
+              * if one was specified. 
+              */
+             (delete_callback) ? delete_callback(p->element): NULL;
+
              safeFree((void **)&p);
              p = temp;
      }
