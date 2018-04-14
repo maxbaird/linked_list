@@ -62,6 +62,11 @@ List LST_makeEmptyList(List l, Comparator c){
  * @return  Returns a non-zero value if l is not null. Returns 0 otherwise.
  */
 int LST_isEmpty(List l){
+    if(l == NULL)
+    {
+      return 1;
+    }
+
     return l->next == NULL;
 }
 
@@ -274,7 +279,6 @@ void LST_traverse(List l, LST_traverse_fun f, void *args)
  * 
  *
  * @param   l The list to traverse
- *
  * @return  The number of items counted
  */
 size_t LST_count(List l)
@@ -282,13 +286,16 @@ size_t LST_count(List l)
   size_t count = 0;
   Position p = LST_header(l);
 
-  while((p = LST_advance(p, l)) && !LST_isLast(p, l))
+  if(LST_isEmpty(p) != 1)
   {
+    while((p = LST_advance(p, l)) && !LST_isLast(p, l))
+    {
+      count = count + 1;
+    }
+
+    /* Count last element */
     count = count + 1;
   }
-
-  /* Count last element */
-  count = count + 1;
 
   return count;
 }

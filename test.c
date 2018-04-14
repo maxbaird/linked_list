@@ -72,7 +72,7 @@ int main(){
   LST_insert((void *)&b3, l, LST_first(l));
   LST_insert((void *)&b4, l, LST_first(l));
   LST_insert((void *)&b5, l, LST_first(l));
-  
+ 
   LST_traverse(l, printFun, NULL);
   
   fprintf(stdout, "List size: %zu\n", LST_count(l));
@@ -89,6 +89,7 @@ int main(){
 
   LST_deleteList(l, boxCleanup);
   l = NULL;
+  fprintf(stdout, "List size: %zu\n", LST_count(l));
 
   return EXIT_SUCCESS;
 }
