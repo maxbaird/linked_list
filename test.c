@@ -75,7 +75,9 @@ int main(){
   
   LST_traverse(l, printFun, NULL);
   
+  fprintf(stdout, "List size: %zu\n", LST_count(l));
   LST_deleteNode((void *)&b4, l, boxCleanup);
+  fprintf(stdout, "List size: %zu\n", LST_count(l));
 
   fprintf(stdout, "List again\n");
   LST_traverse(l, printFun, NULL);

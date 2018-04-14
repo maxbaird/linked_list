@@ -33,6 +33,7 @@ Position LST_last(List l);
 Position LST_advance(Position p, List l);
 ElementType LST_retrieve(Position p);
 void LST_traverse(List l, LST_traverse_fun f, void *args);
+size_t LST_count(List l);
 
 #ifdef __cplusplus
 }

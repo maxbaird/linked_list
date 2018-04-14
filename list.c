@@ -269,3 +269,26 @@ void LST_traverse(List l, LST_traverse_fun f, void *args)
   element = LST_retrieve(LST_last(l));
   f(element, args);
 }
+
+/* Counts the number of items in the list 
+ * 
+ *
+ * @param   l The list to traverse
+ *
+ * @return  The number of items counted
+ */
+size_t LST_count(List l)
+{
+  size_t count = 0;
+  Position p = LST_header(l);
+
+  while((p = LST_advance(p, l)) && !LST_isLast(p, l))
+  {
+    count = count + 1;
+  }
+
+  /* Count last element */
+  count = count + 1;
+
+  return count;
+}
