@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
-
-#define UNUSED(x) (void)(x)
+#include "../list.h"
 
 typedef struct{
   int h;
@@ -11,19 +9,22 @@ typedef struct{
   int *data;
 }Box;
 
-int get_volume(Box *b){
+int get_volume(Box *b)
+{
   return (b->h * b->w * b->d);
 }
 
-int comparator(const void *e1, const void *e2){
+int comparator(const void *e1, const void *e2)
+{
   Box *b1 = (Box *)e1;
   Box *b2 = (Box *)e2;
  
   return (get_volume(b1) == get_volume(b2)) ? 0 : -1;
 }
 
-void printBox(Box *b){
-  printf("\nb->h: %d\n"
+void printBox(Box *b)
+{
+  fprintf(stdout, "\nb->h: %d\n"
          "b->w: %d\n"
          "b->d: %d\n\n",
          b->h,
@@ -38,9 +39,9 @@ void boxCleanup(void *e)
   free(b->data);
 }
 
-static void printFun(void * e, void *args)
+static void printFun(void *e, void *args)
 {
-  UNUSED(args); 
+  (void) args; /* Suppress unused warning */
   printBox((Box *)e);
 }
 
@@ -75,19 +76,16 @@ int main(){
  
   LST_traverse(l, printFun, NULL);
   
-  fprintf(stdout, "List size: %zu\n", LST_count(l));
   LST_deleteNode((void *)&b4, l, boxCleanup);
-  fprintf(stdout, "List size: %zu\n", LST_count(l));
-
-  fprintf(stdout, "List again\n");
-  LST_traverse(l, printFun, NULL);
 
   Position p = LST_find((void *)&b5, l);
   Box *aBox = (Box *)LST_retrieve(p);
+
   fprintf(stdout, "Found box\n");
   printBox(aBox);
 
   LST_deleteList(l, boxCleanup);
+
   l = NULL;
   fprintf(stdout, "List size: %zu\n", LST_count(l));
 
