@@ -14,7 +14,7 @@ static void print_university_info(university_info *info)
 {
   fprintf(stdout, "Programme: %s\n", info->programme);
   fprintf(stdout, "Year: %d\n", info->year);
-  fprintf(stdout, "GPA: %f\n", info->gpa);
+  fprintf(stdout, "GPA: %.1f\n", info->gpa);
 }
 
 bio_info *create_bio_info(char *first_name, char *last_name, int age)
@@ -71,4 +71,5 @@ void print_student(student_info *info)
 {
   print_bio_info(info->bio);
   print_university_info(info->uni_info);
+  fprintf(stdout, "----------------------------\n\n");
 }
