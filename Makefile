@@ -9,8 +9,8 @@ all : $(PROJECT)
 $(PROJECT) : list.c
 	$(CC) $(CFLAGS) -c $< 
 
-demo.out : demo.c $(PROJECT)
+demo : demo.c $(PROJECT)
 	$(CC) $(CFLAGS) $< $(PROJECT) -o $@ 
 
 clean:
-	rm -rf *.o *.out $(PROJECT)
+	rm -rf *.o demo $(PROJECT)
